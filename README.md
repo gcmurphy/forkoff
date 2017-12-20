@@ -3,27 +3,51 @@
 Experiment that uses kafel to set seccomp filters to prevent forking
 Really bad prototype using neon + rust to build bindings.
 
-(very hacky)
+## Hacking
 
-get kafel
+### Install submodules:
 
-    git submodule update --init --recursive
+```
+git submodule update --init --recursive
+```
 
-install rust (if not already)
-	curl https://sh.rustup.rs -sSf | sh
 
-install neon-cli
-	npm install -g neon-cli
+### Install Rust
 
-make libkafel
-	build.rs will look for the file in the root directory
-	node expects libkafel.so.1 to exist so you need to symlink or rename
+```
+curl https://sh.rustup.rs -sSf | sh
+```
 
-build
-	neon build
+### Install [Neon](https://www.neon-bindings.com/)
 
-run
-	node lib/index.js
+```
+npm install -g neon-cli
+```
+
+### Ensure libkafel is built and accessible
+
+(build.rs will look for the file in the root directory)
+(I think node expects libkafel.so.1 to exist so you need to symlink or rename)
+
+```
+cd vendor/kafel
+make
+cp libkafel.so ../
+cp libkafel.so ../lib/libkafel.so.1
+```
+
+### Run the build
+
+``` 
+neon build 
+```
+
+
+### Run the demo
+
+```
+node lib/index.js
+```
 
 
 
