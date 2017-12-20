@@ -1,0 +1,3 @@
+[submodule "vendor/kafel"]
+	path = vendor/kafel
+	url = https://github.com/google/kafel

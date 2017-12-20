@@ -1,0 +1,17 @@
+[package]
+name = "forkoff"
+version = "0.1.0"
+authors = ["Grant Murphy <grant.murphy@elastic.co>"]
+license = "Apache-2.0"
+build = "build.rs"
+
+[lib]
+name = "forkoff"
+crate-type = ["dylib"]
+
+[build-dependencies]
+neon-build = "0.1.22"
+
+[dependencies]
+neon = "0.1.22"
+libc = "0.2"
