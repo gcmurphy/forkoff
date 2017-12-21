@@ -14,7 +14,6 @@ use libc::{
 };
 
 use std::ptr;
-use std::io::{self, Write};
 use std::ffi::{CStr, CString};
 
 #[allow(non_camel_case_types)]
@@ -40,7 +39,7 @@ const PR_SET_NO_NEW_PRIVS: i32 = 38;
 const SECCOMP_FILTER_FLAG_TSYNC: i64 = 1;
 const SECCOMP_SET_MODE_FILTER: i64 = 1;
 const SYSCALL_SECCOMP: i64 = 317;
-const DEFAULT_POLICY: &str  = "POLICY a { KILL { execve, clone, fork } } USE a DEFAULT ALLOW";
+const DEFAULT_POLICY: &str  = "POLICY a { ERRNO(1) { execve, clone, fork } } USE a DEFAULT ALLOW";
 
 #[link(name="kafel")]
 extern "C" {
@@ -58,7 +57,7 @@ unsafe fn kafel_set_policy(source: &CString, sync_all_threads: bool) -> i32 {
     kafel_set_input_string(ctxt, source.as_ptr());
     if kafel_compile(ctxt, prog_ptr) != 0{
         let err = CStr::from_ptr(kafel_error_msg(ctxt));
-        writeln!(io::stderr(), "error: {:?}", err);
+        eprintln!("error: {:?}", err);
         kafel_ctxt_destroy(ctxt);
         return -1;
     }

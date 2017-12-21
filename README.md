@@ -3,6 +3,9 @@
 Experiment that uses kafel to set seccomp filters to prevent forking
 Really bad prototype using neon + rust to build bindings.
 
+
+Currently an EPERM error will be raised when you try to run a process.
+
 ## Hacking
 
 ### Install submodules:
@@ -32,8 +35,8 @@ npm install -g neon-cli
 ```
 cd vendor/kafel
 make
-cp libkafel.so ../
-cp libkafel.so ../libkafel.so.1
+cp libkafel.so ../../
+cp libkafel.so ../../../libkafel.so.1
 ```
 
 ### Run the build
@@ -49,6 +52,3 @@ neon build
 npm start
 ```
 
-
-
-Currently the process just hangs... so that's not good.. I need to look into this some more...
